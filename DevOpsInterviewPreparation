@@ -213,3 +213,112 @@ Push the image to Docker Hub using the docker push command. For example:
 	$ docker push username/my-app:latest
 
 =========================================================================================================================================================================
+Kubernetes is a popular container orchestration system that is used to manage and deploy containerized applications.
+Kubernetes architecture is based on a master-slave model, where the master node manages the overall orchestration of the system, while the worker nodes, also known as minions, execute the actual workloads.
+Here's a detailed explanation of the Kubernetes architecture:
+
+Master Node: The master node is the control plane of the Kubernetes cluster, and it manages the overall orchestration and scheduling of the workloads. It consists of the following components:
+API Server: The API server is the central management point of the Kubernetes system, and it exposes a REST API to interact with the Kubernetes objects.
+
+etcd: etcd is a highly available key-value store that is used to store the configuration data and the current state of the Kubernetes cluster.
+
+Controller Manager: The controller manager is responsible for managing the controllers that regulate the state of the cluster.
+
+Scheduler: The scheduler is responsible for scheduling the workloads to the worker nodes based on the available resources and workload requirements.
+
+Worker Node: The worker nodes are the worker machines that run the containerized applications. They are also known as minions, and they execute the actual workloads. Each worker node runs the following components:
+Kubelet: The Kubelet is responsible for managing the containers on the node and communicating with the master node.
+
+Container Runtime: The container runtime is responsible for running the containers, such as Docker or rkt.
+
+kube-proxy: The kube-proxy is responsible for managing the network connectivity between the containers running on the node.
+
+Pod: The pod is the smallest deployable unit in Kubernetes, and it consists of one or more containers.
+
+Add-Ons: Add-ons are optional components that can be added to the Kubernetes cluster to provide additional functionality, such as logging, monitoring, and load balancing. Some popular add-ons include:
+DNS: Provides DNS resolution for the Kubernetes services.
+
+Ingress Controller: Provides external access to the services running in the Kubernetes cluster.
+
+Dashboard: Provides a web-based graphical user interface to manage the Kubernetes cluster.
+
+=========================================================================================================================================================================
+
+Ingress
+
+Install the Kubernetes ingress controller: Before you can create an ingress resource, you need to install an ingress controller in your Kubernetes cluster.
+The ingress controller is responsible for handling incoming traffic and routing it to the appropriate services.
+
+Create an ingress resource: Once you have installed the ingress controller, you can create an ingress resource.
+An ingress resource is a Kubernetes object that defines how incoming traffic should be routed to the backend services. Here is an example of an ingress resource:
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: my-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: example.com
+    http:
+      paths:
+      - path: /api
+        backend:
+          serviceName: my-service
+          servicePort: 8080
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+In this example, the ingress resource routes traffic for the host example.com to the backend service my-service running on port 8080.
+The rewrite-target annotation is used to strip the /api prefix from the incoming requests before they are sent to the backend service.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Why do we need ingress services
+
+In Kubernetes, Ingress is a networking resource that provides a way to expose HTTP and HTTPS routes from outside the cluster to services within the cluster.
+It essentially acts as a reverse proxy that routes incoming traffic to the appropriate backend services based on the rules defined in the Ingress resource.
+
+Routing: Ingress allows us to route traffic based on the hostname, path or request headers.
+This is useful in scenarios where you have multiple services running in a Kubernetes cluster and need to route traffic to the appropriate backend services based on specific criteria.
+
+
+===============================================================================================================================================================================
+
+What is a Kubernetes pod?
+A pod is the smallest deployable unit in Kubernetes. It is a logical host for one or more containers, and provides a shared network namespace and storage volumes.
+
+What is a Kubernetes deployment?
+A deployment is a Kubernetes resource that defines a desired state for a set of pods.
+It manages the lifecycle of the pods, ensuring that the desired number of replicas are running and rolling out updates.
+
+What is a Kubernetes service?
+A service is a Kubernetes resource that provides a stable IP address and DNS name for a set of pods.
+It enables communication between different parts of an application running in different pods.
+
+What is a Kubernetes namespace?
+A namespace is a way to partition a Kubernetes cluster into multiple virtual clusters.
+It provides a way to organize and isolate resources, and can be used for multi-tenancy and access control.
+
+What is an Ingress in Kubernetes?
+Ingress is a Kubernetes resource that provides a way to expose HTTP and HTTPS routes from outside the cluster to services within the cluster.
+It routes incoming traffic to the appropriate backend services based on the rules defined in the Ingress resource.
+
+What is a Kubernetes controller?
+A Kubernetes controller is a component that manages a specific type of Kubernetes resource, such as pods, deployments, or services.
+It ensures that the desired state of the resource is maintained and handles events such as scaling, updates, and failures.
+
+What is a Kubernetes config map?
+A config map is a Kubernetes resource that provides a way to store configuration data as key-value pairs.
+It can be used to pass configuration data to applications running in Kubernetes pods.
+
+What is a Kubernetes secret?
+A secret is a Kubernetes resource that provides a way to store sensitive data such as passwords, keys, and certificates.
+It ensures that the data is encrypted at rest and only accessible to authorized users or applications.
+
+
+==============================================================================================================================================================================
+
