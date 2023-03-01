@@ -203,3 +203,13 @@ spec:
   selector:
     app: my-app
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+To push a multi-stage Docker image to Docker Hub registry, you can follow these steps:
+
+Build the multi-stage Docker image using the Dockerfile. You can use the docker build command to build the image. For example:
+	$ docker build -t username/my-app:latest .
+
+Push the image to Docker Hub using the docker push command. For example:
+	$ docker push username/my-app:latest
+
+=========================================================================================================================================================================
